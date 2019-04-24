@@ -18,25 +18,6 @@ computeMDS05 <- function (data, Vegetables, Legumes, FruitAndNuts, Cereals, Pota
   SFA <- eval(arguments$SFA, data)
   Sex <- eval(arguments$Sex, data)
 
-
-  # This code chunk checks the 'Sex' argument to identify if it contents enough information to understand sex labels, or if it needs the 'men' and 'women' arguments
-  if((missing(men) || missing(women)) && is.numeric(Sex)) {stop("'Sex' argument is numeric, and the function knows not how to handle it, please, provide 'men' and 'women' arguments (v.gr. men=1, women=2)")}
-
-  if(missing(men) || missing(women) && (is.factor(Sex) || is.character(Sex))) {
-    if(any(levels(Sex)) %in% c("man", "male", "MAN", "Male", "MALE")) {men <- levels(Sex)[which(levels(Sex)) %in% c("man", "male", "MAN", "Male", "MALE")]
-    } else {
-      if(any(levels(Sex)) %in% c("woman", "female", "WOMAN", "Female", "FEMALE")) {women <- levels(Sex)[which(levels(Sex)) %in% c("woman", "female", "WOMAN", "Female", "FEMALE")]
-      } else {
-        if(any(names(table(Sex)) %in% c("man", "male", "MAN", "Male", "MALE"))) {men <- names(table(Sex))[which(names(table(Sex)) %in% c("man", "male", "MAN", "Male", "MALE"))]
-        } else {
-          if(any(names(table(Sex)) %in% c("woman", "female", "WOMAN", "Female", "FEMALE"))) {women <- names(table(Sex))[which(names(table(Sex)) %in% c("woman", "female", "WOMAN", "Female", "FEMALE"))]
-          } else {stop("function knows not to handle the 'Sex' argument, please, set values for men and women identification with 'men' and 'women' arguments")}
-        }
-      }
-    }
-  }
-
-
   # this code chunk tests if data has not been introduced in a daily fashion, and if so, transform data to daily consumption
   if(is.null(frequency)){stop("please, provide the frequency of consumption in which the data is tabulated with the 'frequency' argument. Accepted values are 'daily', 'weekly' and 'monthly'")}
 
